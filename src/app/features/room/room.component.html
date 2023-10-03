@@ -1,4 +1,4 @@
-<ng-container *ngIf="!room">
+<ng-container *ngIf="!room && joinForm">
   <h2>Join room</h2>
 
   <form [formGroup]="joinForm" (ngSubmit)="onSubmit()">

@@ -1,12 +1,17 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
+import { NgModule } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
+import { StorageModule } from '@shared/storage/storage.module';
 import { RoomRoutingModule } from './room-routing.module';
 import { RoomComponent } from './room.component';
-import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [RoomComponent],
-  imports: [CommonModule, ReactiveFormsModule, RoomRoutingModule],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    StorageModule,
+    RoomRoutingModule,
+  ],
 })
 export class RoomModule {}
