@@ -1,1 +1,20 @@
-<p>room works!</p>
+<ng-container *ngIf="!room">
+  <h2>Join room</h2>
+
+  <form [formGroup]="joinForm" (ngSubmit)="onSubmit()">
+    <input
+      formControlName="name"
+      type="text"
+      name="name"
+      placeholder="Your name"
+      class="text-input"
+    />
+    <button type="submit" class="button">Join</button>
+  </form>
+</ng-container>
+
+<div *ngIf="room" [ngStyle]="{ '--rows': room.matrix.length }" class="field">
+  <ng-container *ngFor="let row of room.matrix">
+    <div *ngFor="let col of row" class="cell">{{ col }}</div>
+  </ng-container>
+</div>

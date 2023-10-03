@@ -1,4 +1,7 @@
 html {
+  // TODO: find the palette
+  --color-primary: #42df22;
+
   --color-text-light: #eee;
   --color-text-dark: #222;
 
@@ -13,19 +16,18 @@ html {
 
   --color-scrollbar-thumb: #ddd;
 
-  --color-virtual-keyboard-key: #444;
-  --color-virtual-keyboard-key-dark: #333;
-
   --color-disabled: #bbb;
 }
 
 html.theme-light {
+  // TODO: check the color
   --color-text-light: #222;
   --color-text-dark: #222;
 
   --color-success: #42df22;
   --color-error: #c72c41;
 
+  // TODO: check the color
   --color-surface-light: #fff;
   --color-surface-dark: #fff;
   --color-surface-success: rgba(66, 223, 34, 0.2);
@@ -33,9 +35,6 @@ html.theme-light {
   --color-border-dark: #222;
 
   --color-scrollbar-thumb: #ddd;
-
-  --color-virtual-keyboard-key: #eee;
-  --color-virtual-keyboard-key-dark: #eee;
 
   --color-disabled: #bbb;
 }
