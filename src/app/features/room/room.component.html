@@ -13,8 +13,36 @@
   </form>
 </ng-container>
 
-<div *ngIf="room" [ngStyle]="{ '--rows': room.matrix.length }" class="field">
-  <ng-container *ngFor="let row of room.matrix">
-    <div *ngFor="let col of row" class="cell">{{ col }}</div>
+<ng-container *ngIf="room">
+  <ng-container [ngSwitch]="room.state">
+    <div *ngSwitchCase="'waitingPlayers'">Waiting players</div>
+
+    <div *ngSwitchCase="'game'">
+      <div [ngStyle]="{ '--rows': room.matrix.length }" class="field">
+        <ng-container *ngFor="let row of cells">
+          <app-field-cell
+            *ngFor="let cell of row"
+            [value]="cell.value"
+            [highlighted]="cell.selected"
+            [editable]="currentPlayerTurn"
+          ></app-field-cell>
+        </ng-container>
+      </div>
+      <div>Game state: {{ room.state }}</div>
+      <div>Current player: {{ room.currentPlayerName }}</div>
+      <div class="players-list">
+        <div *ngFor="let player of room.players" class="player-stat">
+          <div class="player-name">{{ player.name }}</div>
+          <div class="player-score">{{ player.score }}</div>
+          <div class="player-words">
+            <div *ngFor="let word of player.words" class="player-word">
+              {{ word }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div *ngSwitchCase="'gameEnd'">Game end</div>
   </ng-container>
-</div>
+</ng-container>

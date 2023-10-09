@@ -1,4 +1,4 @@
-import { Player } from './player.interface';
+import { RoomPlayer } from './room-player.interface';
 import { RoomState } from './room-state.enum';
 
 export interface Room {
@@ -7,6 +7,6 @@ export interface Room {
   capacity: number;
   state: RoomState;
   currentPlayerName: string | null;
-  players: Player[];
+  players: RoomPlayer[];
   matrix: string[][];
 }

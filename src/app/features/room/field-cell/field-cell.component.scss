@@ -1,0 +1,23 @@
+:host {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-surface-dark);
+  color: var(--color-text-light);
+  border: 1px solid #111; // TODO: update
+  text-transform: uppercase;
+  aspect-ratio: 1;
+
+  &.editable {
+    cursor: pointer;
+
+    &:hover {
+      border-color: white; // TODO: update
+    }
+  }
+}
+
+.input {
+  text-align: center;
+  text-transform: uppercase;
+}

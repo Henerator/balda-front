@@ -4,9 +4,10 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { StorageModule } from '@shared/storage/storage.module';
 import { RoomRoutingModule } from './room-routing.module';
 import { RoomComponent } from './room.component';
+import { FieldCellComponent } from './field-cell/field-cell.component';
 
 @NgModule({
-  declarations: [RoomComponent],
+  declarations: [RoomComponent, FieldCellComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,

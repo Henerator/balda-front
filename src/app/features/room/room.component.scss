@@ -4,24 +4,5 @@
   grid-auto-rows: 1fr;
   width: 400px;
   margin: 0 auto;
-  font-size: 22px; // TODO: use screen size relative value
-}
-
-.cell {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--color-surface-dark);
-  color: var(--color-text-light);
-  border: 1px solid #111; // TODO: update
-  text-transform: uppercase;
-  aspect-ratio: 1;
-
-  &.available {
-    cursor: pointer;
-
-    &:hover {
-      border-color: white; // TODO: update
-    }
-  }
+  font-size: 28px; // TODO: use screen size relative value
 }

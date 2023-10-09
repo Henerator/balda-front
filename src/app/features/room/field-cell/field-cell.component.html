@@ -1,0 +1,13 @@
+<ng-container *ngIf="value && !isEditing">
+  {{ value }}
+</ng-container>
+
+<ng-container *ngIf="!value && isEditing">
+  <input
+    #input
+    [formControl]="control"
+    (focusout)="resetEditing()"
+    type="text"
+    class="input"
+  />
+</ng-container>
