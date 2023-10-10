@@ -1,7 +1,7 @@
 export enum RoomMessage {
   room = 'room',
   join = 'join',
-  newWord = 'new-word',
+  newWord = 'newWord',
   error = 'error',
   unknown = 'unknown',
 }

@@ -11,12 +11,17 @@
 
     <div *ngSwitchCase="'game'">
       <app-room-field
-        [matrix]="room.matrix"
+        [matrix]="matrix"
         [editable]="gameState === gameStates.addLetter"
         [selectable]="gameState === gameStates.selectWord"
         (letterChanged)="onAddLeter($event)"
         (positionsSelected)="onPositionsSelected($event)"
       ></app-room-field>
+
+      <div *ngIf="gameState === gameStates.selectWord && changedLetter">
+        <button (click)="onApplyWord()" class="button">Apply</button>
+        <button (click)="onCancelWord()" class="button">Cancel</button>
+      </div>
 
       <div>Room state: {{ room.state }}</div>
       <div>Game state: {{ gameState }}</div>

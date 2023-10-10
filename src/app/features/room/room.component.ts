@@ -12,6 +12,7 @@ import { RoomMessage } from './models/room-message.enum';
 import { ServerToClientEvents } from './models/server-to-client-events.interface';
 import { StorageRoom } from './models/storage-room.interface';
 import { ChangedLetter } from './room-field/models/changed-letter.interface';
+import { RoomErrorId } from './models/room-error-id.enum';
 
 @Component({
   selector: 'app-room',
@@ -22,16 +23,17 @@ export class RoomComponent implements OnInit {
   public gameStates = GameState;
 
   public room: Room | null = null;
+  public matrix: string[][] = [];
   public gameState: GameState | null = null;
   public playerName: string | null = null;
+
+  public changedLetter: ChangedLetter | null = null;
+  public selectedPositions: Position[] = [];
 
   private roomId: string | null = null;
   private socket: Socket<ServerToClientEvents, ClientToServerEvents> = io(
     `${environment.socketServerUrl}/room`
   );
-
-  private changedLetter: ChangedLetter | null = null;
-  private selectedPositions: Position[] = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -41,11 +43,20 @@ export class RoomComponent implements OnInit {
   ngOnInit(): void {
     this.socket.on(RoomMessage.error, (message) => {
       console.log('[LOG] error', message);
+      switch (message.id) {
+        case RoomErrorId.wordNotFound:
+          this.resetSelectedWord();
+          break;
+        default:
+          console.log('[LOG] unknown error');
+          break;
+      }
     });
 
     this.socket.on(RoomMessage.room, (room) => {
       console.log('[LOG] room', room);
       this.room = room;
+      this.udpateMatrix(room);
       this.updateGameState(room);
     });
 
@@ -90,6 +101,31 @@ export class RoomComponent implements OnInit {
     this.selectedPositions = positions;
   }
 
+  onApplyWord(): void {
+    if (!this.roomId || !this.playerName || !this.changedLetter) {
+      console.log('[LOG] no required attributes');
+      return;
+    }
+
+    this.socket.emit(RoomMessage.newWord, {
+      roomId: this.roomId,
+      playerName: this.playerName,
+      letter: this.changedLetter,
+      word: this.selectedPositions,
+    });
+  }
+
+  onCancelWord(): void {
+    this.resetSelectedWord();
+  }
+
+  private resetSelectedWord(): void {
+    this.changedLetter = null;
+    this.selectedPositions = [];
+    this.gameState = GameState.addLetter;
+    this.udpateMatrix(this.room);
+  }
+
   private getStorageKey(roomId: string): string {
     return `room-${roomId}`;
   }
@@ -104,6 +140,11 @@ export class RoomComponent implements OnInit {
       roomId,
       playerName,
     });
+  }
+
+  private udpateMatrix(room: Room | null): void {
+    if (!room) return;
+    this.matrix = room.matrix.slice();
   }
 
   private updateGameState(room: Room): void {

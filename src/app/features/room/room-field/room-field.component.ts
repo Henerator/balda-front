@@ -12,6 +12,7 @@ export class RoomFieldComponent {
   @Input() public editable = false;
   @Input() public selectable = false;
   @Input() public set matrix(value: string[][]) {
+    this.resetState();
     this.cells = this.mapRoomMatrix(value);
   }
 
@@ -25,7 +26,7 @@ export class RoomFieldComponent {
   onLetterChanged(letter: string, x: number, y: number): void {
     this.cells[y][x].value = letter;
     this.letterChanged.emit({
-      letter,
+      char: letter,
       position: { x, y },
     });
   }
@@ -36,14 +37,13 @@ export class RoomFieldComponent {
 
     const lastSelected = this.selectedPositions.at(-1);
 
-    if (
-      this.cells[y][x].selected &&
-      lastSelected?.x === x &&
-      lastSelected?.y === y
-    ) {
-      this.cells[y][x].selected = false;
-      this.selectedPositions.pop();
-      this.positionsSelected.emit(this.selectedPositions);
+    if (this.cells[y][x].selected) {
+      if (lastSelected?.x === x && lastSelected?.y === y) {
+        this.cells[y][x].selected = false;
+        this.selectedPositions.pop();
+        this.positionsSelected.emit(this.selectedPositions);
+      }
+
       return;
     }
 
@@ -54,6 +54,10 @@ export class RoomFieldComponent {
     this.cells[y][x].selected = true;
     this.selectedPositions.push({ x, y });
     this.positionsSelected.emit(this.selectedPositions);
+  }
+
+  private resetState(): void {
+    this.selectedPositions = [];
   }
 
   private mapRoomMatrix(matrix: string[][]): FieldCell[][] {
