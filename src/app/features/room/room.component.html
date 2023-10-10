@@ -18,9 +18,16 @@
         (positionsSelected)="onPositionsSelected($event)"
       ></app-room-field>
 
-      <div *ngIf="gameState === gameStates.selectWord && changedLetter">
-        <button (click)="onApplyWord()" class="button">Apply</button>
-        <button (click)="onCancelWord()" class="button">Cancel</button>
+      <div
+        *ngIf="gameState === gameStates.selectWord && changedLetter"
+        class="margin-t-sm"
+      >
+        <button (click)="onApplyWord()" class="button primary margin-b-sm">
+          Apply
+        </button>
+        <button (click)="onCancelWord()" class="button secondary">
+          Cancel
+        </button>
       </div>
 
       <div>Room state: {{ room.state }}</div>

@@ -2,20 +2,24 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--color-surface-dark);
-  color: var(--color-text-light);
-  border: 1px solid #111; // TODO: update
+  color: var(--text);
+  border: 2px solid var(--primary);
   text-transform: uppercase;
   aspect-ratio: 1;
 
-  &.editable {
-    &:hover {
-      border-color: white; // TODO: update
-    }
+  &.filled {
+    background: var(--primary);
+    color: var(--background);
   }
 
   &.highlighted {
-    background: lightblue;
+    background: var(--accent);
+  }
+
+  &.editable {
+    &:hover {
+      border-color: var(--secondary);
+    }
   }
 }
 
