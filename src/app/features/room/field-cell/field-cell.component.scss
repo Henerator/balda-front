@@ -9,11 +9,13 @@
   aspect-ratio: 1;
 
   &.editable {
-    cursor: pointer;
-
     &:hover {
       border-color: white; // TODO: update
     }
+  }
+
+  &.highlighted {
+    background: lightblue;
   }
 }
 

@@ -5,22 +5,27 @@ import {
   HostBinding,
   HostListener,
   Input,
+  OnDestroy,
   Output,
   ViewChild,
 } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-field-cell',
   templateUrl: './field-cell.component.html',
   styleUrls: ['./field-cell.component.scss'],
 })
-export class FieldCellComponent {
+export class FieldCellComponent implements OnDestroy {
   @Input() public value: string | null = null;
-  @Input() public highlighted = false;
   @Input() public editable = false;
 
-  @Output() letterSelected = new EventEmitter<void>();
+  @HostBinding('class.highlighted')
+  @Input()
+  public highlighted = false;
+
+  @Output() letterChanged = new EventEmitter<string>();
 
   @ViewChild('input')
   public input: ElementRef | null = null;
@@ -38,26 +43,36 @@ export class FieldCellComponent {
     return Boolean(this.value);
   }
 
+  private changeSubscription?: Subscription;
+
+  ngOnDestroy(): void {
+    this.changeSubscription?.unsubscribe();
+  }
+
   @HostListener('click')
   public onClick(): void {
     if (!this.value && this.editable && !this.isEditing) {
       this.control.reset();
-      this.control.valueChanges.subscribe((value) => {
+
+      this.changeSubscription?.unsubscribe();
+      this.changeSubscription = this.control.valueChanges.subscribe((value) => {
         // TODO: remove unsupported chars
         if (!value) return;
 
-        this.value = value.substring(0, 1);
+        const letter = value.substring(0, 1);
         this.isEditing = false;
-        this.letterSelected.emit();
+        this.letterChanged.emit(letter);
       });
       this.isEditing = true;
-      setTimeout(() => {
-        (this.input?.nativeElement as HTMLInputElement).focus();
-      });
+      this.focusInput();
     }
   }
 
   public resetEditing(): void {
     this.isEditing = false;
+  }
+
+  private focusInput(): void {
+    setTimeout(() => (this.input?.nativeElement as HTMLInputElement).focus());
   }
 }

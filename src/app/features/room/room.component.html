@@ -1,45 +1,32 @@
-<ng-container *ngIf="!room && joinForm">
-  <h2>Join room</h2>
+<!-- TODO: add loading state -->
 
-  <form [formGroup]="joinForm" (ngSubmit)="onSubmit()">
-    <input
-      formControlName="name"
-      type="text"
-      name="name"
-      placeholder="Your name"
-      class="text-input"
-    />
-    <button type="submit" class="button">Join</button>
-  </form>
-</ng-container>
+<app-join-form
+  *ngIf="!room"
+  (formSubmit)="onJoinSubmit($event)"
+></app-join-form>
 
 <ng-container *ngIf="room">
   <ng-container [ngSwitch]="room.state">
     <div *ngSwitchCase="'waitingPlayers'">Waiting players</div>
 
     <div *ngSwitchCase="'game'">
-      <div [ngStyle]="{ '--rows': room.matrix.length }" class="field">
-        <ng-container *ngFor="let row of cells">
-          <app-field-cell
-            *ngFor="let cell of row"
-            [value]="cell.value"
-            [highlighted]="cell.selected"
-            [editable]="currentPlayerTurn"
-          ></app-field-cell>
-        </ng-container>
-      </div>
-      <div>Game state: {{ room.state }}</div>
+      <app-room-field
+        [matrix]="room.matrix"
+        [editable]="gameState === gameStates.addLetter"
+        [selectable]="gameState === gameStates.selectWord"
+        (letterChanged)="onAddLeter($event)"
+        (positionsSelected)="onPositionsSelected($event)"
+      ></app-room-field>
+
+      <div>Room state: {{ room.state }}</div>
+      <div>Game state: {{ gameState }}</div>
       <div>Current player: {{ room.currentPlayerName }}</div>
+
       <div class="players-list">
-        <div *ngFor="let player of room.players" class="player-stat">
-          <div class="player-name">{{ player.name }}</div>
-          <div class="player-score">{{ player.score }}</div>
-          <div class="player-words">
-            <div *ngFor="let word of player.words" class="player-word">
-              {{ word }}
-            </div>
-          </div>
-        </div>
+        <app-player-statistics
+          *ngFor="let player of room.players"
+          [player]="player"
+        ></app-player-statistics>
       </div>
     </div>
 

@@ -1,0 +1,10 @@
+.field {
+  display: grid;
+  grid-template-columns: repeat(var(--rows), 1fr);
+  grid-auto-rows: 1fr;
+  width: 400px;
+  margin: 0 auto;
+  font-size: 28px; // TODO: use screen size relative value
+  user-select: none;
+  cursor: pointer;
+}
