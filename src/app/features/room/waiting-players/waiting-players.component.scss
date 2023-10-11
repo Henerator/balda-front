@@ -1,0 +1,15 @@
+:host {
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.field {
+  opacity: 0.3;
+}
+
+.title {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}

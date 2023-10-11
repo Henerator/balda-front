@@ -3,22 +3,24 @@
   align-items: center;
   justify-content: center;
   color: var(--text);
-  border: 2px solid var(--primary);
+  border: 2px solid var(--secondary);
   text-transform: uppercase;
   aspect-ratio: 1;
 
   &.filled {
-    background: var(--primary);
-    color: var(--background);
+    background: var(--secondary);
+    color: var(--text);
   }
 
   &.highlighted {
-    background: var(--accent);
+    background: var(--primary);
+    color: var(--background);
+    border-color: var(--primary);
   }
 
   &.editable {
     &:hover {
-      border-color: var(--secondary);
+      border-color: var(--primary);
     }
   }
 }

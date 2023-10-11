@@ -7,9 +7,12 @@
 
 <ng-container *ngIf="room">
   <ng-container [ngSwitch]="room.state">
-    <div *ngSwitchCase="'waitingPlayers'">Waiting players</div>
+    <app-waiting-players
+      *ngSwitchCase="'waitingPlayers'"
+      [matrix]="matrix"
+    ></app-waiting-players>
 
-    <div *ngSwitchCase="'game'">
+    <div *ngSwitchCase="'game'" class="game-container">
       <app-room-field
         [matrix]="matrix"
         [editable]="gameState === gameStates.addLetter"
@@ -18,27 +21,29 @@
         (positionsSelected)="onPositionsSelected($event)"
       ></app-room-field>
 
-      <div
-        *ngIf="gameState === gameStates.selectWord && changedLetter"
-        class="margin-t-sm"
-      >
-        <button (click)="onApplyWord()" class="button primary margin-b-sm">
-          Apply
-        </button>
-        <button (click)="onCancelWord()" class="button secondary">
-          Cancel
-        </button>
-      </div>
+      <div class="controls">
+        <div
+          *ngIf="gameState === gameStates.selectWord && changedLetter"
+          class="margin-t-sm margin-b-sm"
+        >
+          <button (click)="onApplyWord()" class="button primary margin-b-sm">
+            Apply
+          </button>
+          <button (click)="onCancelWord()" class="button secondary">
+            Cancel
+          </button>
+        </div>
 
-      <div>Room state: {{ room.state }}</div>
-      <div>Game state: {{ gameState }}</div>
-      <div>Current player: {{ room.currentPlayerName }}</div>
+        <div>Room state: {{ room.state }}</div>
+        <div>Game state: {{ gameState }}</div>
+        <div>Current player: {{ room.currentPlayerName }}</div>
 
-      <div class="players-list">
-        <app-player-statistics
-          *ngFor="let player of room.players"
-          [player]="player"
-        ></app-player-statistics>
+        <div class="players-list margin-t-sm">
+          <app-player-statistics
+            *ngFor="let player of room.players"
+            [player]="player"
+          ></app-player-statistics>
+        </div>
       </div>
     </div>
 
