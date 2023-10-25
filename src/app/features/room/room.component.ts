@@ -45,10 +45,11 @@ export class RoomComponent implements OnInit {
       console.log('[LOG] error', message);
       switch (message.id) {
         case RoomErrorId.wordNotFound:
+        case RoomErrorId.wordAlreadyUsed:
           this.resetSelectedWord();
           break;
         default:
-          console.log('[LOG] unknown error');
+          console.log('[LOG] unknown error', message);
           break;
       }
     });

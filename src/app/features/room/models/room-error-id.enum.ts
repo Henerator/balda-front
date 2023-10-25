@@ -5,6 +5,7 @@ export enum RoomErrorId {
   positionNotFound = 'positionNotFound',
   positionFilled = 'positionFilled',
   wordNotFound = 'wordNotFound',
+  wordAlreadyUsed = 'wordAlreadyUsed',
   invalidWordSequence = 'invalidWordSequence',
   noLetterInSequence = 'noLetterInSequence',
   unfilledWordSequence = 'unfilledWordSequence',
