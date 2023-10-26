@@ -16,7 +16,7 @@ export class CreateRoomComponent {
 
   onSubmit(): void {
     this.roomApiService.createRoom({ size: 5 }).subscribe((room: Room) => {
-      this.router.navigate(['room', room.id]);
+      this.router.navigate(['room', room._id]);
     });
   }
 }
