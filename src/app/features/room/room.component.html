@@ -1,50 +1,54 @@
-<!-- TODO: add loading state -->
+<div *ngIf="loading; else content" class="page-container loader-container">
+  <app-loader></app-loader>
+</div>
 
-<app-join-form
-  *ngIf="!room"
-  (formSubmit)="onJoinSubmit($event)"
-></app-join-form>
+<ng-template #content>
+  <app-join-form
+    *ngIf="!room"
+    (formSubmit)="onJoinSubmit($event)"
+  ></app-join-form>
 
-<div *ngIf="room" class="room">
-  <ng-container [ngSwitch]="room.state">
-    <app-waiting-players
-      *ngSwitchCase="'waitingPlayers'"
-      [matrix]="matrix"
-    ></app-waiting-players>
-
-    <div *ngSwitchCase="'game'" class="game-container">
-      <app-room-field
+  <div *ngIf="room" class="page-container">
+    <ng-container [ngSwitch]="room.state">
+      <app-waiting-players
+        *ngSwitchCase="'waitingPlayers'"
         [matrix]="matrix"
-        [editable]="gameState === gameStates.addLetter"
-        [selectable]="gameState === gameStates.selectWord"
-        (letterChanged)="onAddLeter($event)"
-        (positionsSelected)="onPositionsSelected($event)"
-      ></app-room-field>
+      ></app-waiting-players>
 
-      <div class="controls">
-        <div
-          *ngIf="gameState === gameStates.selectWord && changedLetter"
-          class="margin-t-sm margin-b-sm"
-        >
-          <button (click)="onApplyWord()" class="button primary margin-b-sm">
-            Apply
-          </button>
-          <button (click)="onCancelWord()" class="button secondary">
-            Cancel
-          </button>
-        </div>
+      <div *ngSwitchCase="'game'" class="game-container">
+        <app-room-field
+          [matrix]="matrix"
+          [editable]="gameState === gameStates.addLetter"
+          [selectable]="gameState === gameStates.selectWord"
+          (letterChanged)="onAddLeter($event)"
+          (positionsSelected)="onPositionsSelected($event)"
+        ></app-room-field>
 
-        <div class="player-statistics-list margin-t-sm">
-          <app-player-statistics
-            *ngFor="let player of room.players"
-            [player]="player"
-            [highlighted]="player.name === room.currentPlayerName"
-            class="player-statistic"
-          ></app-player-statistics>
+        <div class="controls">
+          <div
+            *ngIf="gameState === gameStates.selectWord && changedLetter"
+            class="margin-t-sm margin-b-sm"
+          >
+            <button (click)="onApplyWord()" class="button primary margin-b-sm">
+              Apply
+            </button>
+            <button (click)="onCancelWord()" class="button secondary">
+              Cancel
+            </button>
+          </div>
+
+          <div class="player-statistics-list margin-t-sm">
+            <app-player-statistics
+              *ngFor="let player of room.players"
+              [player]="player"
+              [highlighted]="player.name === room.currentPlayerName"
+              class="player-statistic"
+            ></app-player-statistics>
+          </div>
         </div>
       </div>
-    </div>
 
-    <div *ngSwitchCase="'gameEnd'">Game end</div>
-  </ng-container>
-</div>
+      <div *ngSwitchCase="'gameEnd'">Game end</div>
+    </ng-container>
+  </div>
+</ng-template>

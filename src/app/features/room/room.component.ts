@@ -20,6 +20,7 @@ import { RoomErrorId } from './models/room-error-id.enum';
   styleUrls: ['./room.component.scss'],
 })
 export class RoomComponent implements OnInit {
+  public loading = true;
   public gameStates = GameState;
 
   public room: Room | null = null;
@@ -59,6 +60,8 @@ export class RoomComponent implements OnInit {
       this.room = room;
       this.udpateMatrix(room);
       this.updateGameState(room);
+
+      this.setLoading(false);
     });
 
     this.route.paramMap.subscribe((params: ParamMap) => {
@@ -74,6 +77,8 @@ export class RoomComponent implements OnInit {
         this.joinRoom(roomId, savedPlayerName);
         return;
       }
+
+      this.setLoading(false);
     });
   }
 
@@ -122,6 +127,10 @@ export class RoomComponent implements OnInit {
 
   onCancelWord(): void {
     this.resetSelectedWord();
+  }
+
+  private setLoading(state: boolean): void {
+    this.loading = state;
   }
 
   private resetSelectedWord(): void {

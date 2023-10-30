@@ -4,8 +4,13 @@
   display: block;
 }
 
-.room {
+.page-container {
   padding: 32px 16px;
+}
+
+.loader-container {
+  display: flex;
+  justify-content: center;
 }
 
 .game-container {
@@ -31,7 +36,7 @@
 }
 
 @include device.for-mobile {
-  .room {
+  .page-container {
     padding: 12px;
   }
 }

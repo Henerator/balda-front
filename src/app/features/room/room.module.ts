@@ -9,6 +9,7 @@ import { RoomFieldComponent } from './room-field/room-field.component';
 import { RoomRoutingModule } from './room-routing.module';
 import { RoomComponent } from './room.component';
 import { WaitingPlayersComponent } from './waiting-players/waiting-players.component';
+import { LoaderModule } from '@shared/loader/loader.module';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,10 @@ import { WaitingPlayersComponent } from './waiting-players/waiting-players.compo
   imports: [
     CommonModule,
     ReactiveFormsModule,
+
     StorageModule,
+    LoaderModule,
+
     RoomRoutingModule,
   ],
 })
