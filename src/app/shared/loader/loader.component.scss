@@ -1,0 +1,40 @@
+:host {
+  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dot {
+  animation: dot-animation ease-in-out 1s infinite;
+  background-color: var(--background);
+  width: 24px;
+  height: 24px;
+
+  &:not(:last-child) {
+    margin-right: 16px;
+  }
+}
+
+.dot:nth-of-type(2) {
+  animation-delay: 0.2s;
+}
+
+.dot:nth-of-type(3) {
+  animation-delay: 0.3s;
+}
+
+@keyframes dot-animation {
+  0% {
+    background-color: var(--background);
+    transform: scale(1);
+  }
+  50% {
+    background-color: var(--primary);
+    transform: scale(1.3);
+  }
+  100% {
+    background-color: var(--background);
+    transform: scale(1);
+  }
+}
