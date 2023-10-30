@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, HostBinding, Input } from '@angular/core';
 import { RoomPlayer } from '@shared/room-api/room-player.interface';
 
 @Component({
@@ -8,4 +8,8 @@ import { RoomPlayer } from '@shared/room-api/room-player.interface';
 })
 export class PlayerStatisticsComponent {
   @Input() public player!: RoomPlayer;
+
+  @HostBinding('class.highlighted')
+  @Input()
+  public highlighted = false;
 }

@@ -1,8 +1,11 @@
+@use "src/styles/device/device";
+
 :host {
-  padding: 16px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  display: block;
+}
+
+.room {
+  padding: 32px 16px;
 }
 
 .game-container {
@@ -15,7 +18,20 @@
   width: 400px;
 }
 
-.players-list {
+.player-statistics-list {
   display: grid;
   grid-template-columns: 1fr 1fr;
+  column-gap: 12px;
+}
+
+.player-statistic {
+  &:nth-child(odd) {
+    text-align: right;
+  }
+}
+
+@include device.for-mobile {
+  .room {
+    padding: 12px;
+  }
 }

@@ -1,3 +1,26 @@
 :host {
+  display: flex;
+  flex-direction: column;
   color: var(--text);
+
+  &.highlighted {
+    .name {
+      color: var(--primary);
+    }
+  }
+}
+
+.name {
+  flex-grow: 1;
+}
+
+.score__value {
+  color: var(--primary);
+  font-weight: bold;
+}
+
+.score {
+  margin-top: 6px;
+  padding-top: 6px;
+  border-top: 1px solid var(--secondary);
 }

@@ -5,7 +5,7 @@
   (formSubmit)="onJoinSubmit($event)"
 ></app-join-form>
 
-<ng-container *ngIf="room">
+<div *ngIf="room" class="room">
   <ng-container [ngSwitch]="room.state">
     <app-waiting-players
       *ngSwitchCase="'waitingPlayers'"
@@ -34,14 +34,12 @@
           </button>
         </div>
 
-        <div>Room state: {{ room.state }}</div>
-        <div>Game state: {{ gameState }}</div>
-        <div>Current player: {{ room.currentPlayerName }}</div>
-
-        <div class="players-list margin-t-sm">
+        <div class="player-statistics-list margin-t-sm">
           <app-player-statistics
             *ngFor="let player of room.players"
             [player]="player"
+            [highlighted]="player.name === room.currentPlayerName"
+            class="player-statistic"
           ></app-player-statistics>
         </div>
       </div>
@@ -49,4 +47,4 @@
 
     <div *ngSwitchCase="'gameEnd'">Game end</div>
   </ng-container>
-</ng-container>
+</div>

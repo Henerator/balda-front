@@ -1,7 +1,11 @@
-<h4>{{ player.name }}</h4>
-<div class="player-score">Score: {{ player.score }}</div>
-<div class="player-words">
-  <div *ngFor="let word of player.words" class="player-word">
+<h4 class="name">{{ player.name }}</h4>
+
+<div class="words">
+  <div *ngFor="let word of player.words" class="word">
     {{ word }}
   </div>
+</div>
+
+<div class="score">
+  Score: <span class="score__value">{{ player.score }}</span>
 </div>

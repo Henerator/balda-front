@@ -1,4 +1,19 @@
+@use "src/styles/device/device";
+
 :host {
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.form {
   width: 400px;
+  padding: 32px 16px;
+}
+
+@include device.for-mobile {
+  .form {
+    padding: 12px;
+  }
 }

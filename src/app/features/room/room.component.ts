@@ -108,6 +108,10 @@ export class RoomComponent implements OnInit {
       return;
     }
 
+    if (this.selectedPositions.length === 0) {
+      return;
+    }
+
     this.socket.emit(RoomMessage.newWord, {
       roomId: this.roomId,
       playerName: this.playerName,

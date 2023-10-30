@@ -1,9 +1,10 @@
-<form [formGroup]="joinForm" (ngSubmit)="onSubmit()">
+<form [formGroup]="joinForm" (ngSubmit)="onSubmit()" class="form">
   <input
     formControlName="name"
     type="text"
     name="name"
     placeholder="Your name"
+    autocomplete="off"
     class="text-input margin-b-sm"
   />
   <button type="submit" class="button primary">Join</button>
