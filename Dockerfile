@@ -1,17 +1,17 @@
-FROM node:21-alpine AS build
+FROM node:20-alpine AS build
 
 WORKDIR /app
 
 COPY package*.json ./
 
 # install depedencies
-RUN npm install
+RUN npm ci
 
 # copy all files
 COPY . .
 
-# build app
-RUN npm run build --prod
+# build the app
+RUN npm run build --prod && npm prune --production
 
 FROM nginx:1.25-alpine
 
