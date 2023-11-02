@@ -1,0 +1,8 @@
+version: '3.8'
+services:
+  balda:
+    image: ghcr.io/henerator/balda-front/balda-front:latest
+    ports:
+      - "80:80"
+      - "443:443"
+
