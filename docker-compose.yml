@@ -8,4 +8,4 @@ services:
       - 80:80
       - 443:443
     volumes:
-      - /etc/letsencrypt/live/roman-balda.ru/:/ssl-sertificates/
+      - /etc/letsencrypt/live/roman-balda.ru:/etc/ssl-sertificates
