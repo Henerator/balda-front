@@ -1,10 +1,24 @@
 @use "src/styles/device/device";
 
 :host {
-  display: block;
+  display: flex;
+  justify-content: center;
   width: 100%;
   user-select: none;
   -webkit-tap-highlight-color: transparent;
+
+  &.blocked {
+    .field {
+      opacity: 0.3;
+    }
+  }
+}
+
+.field-container {
+  position: relative;
+  width: 400px;
+  display: flex;
+  justify-content: center;
 }
 
 .field {
@@ -12,10 +26,16 @@
   grid-template-columns: repeat(var(--rows), 1fr);
   grid-auto-rows: 1fr;
   gap: 6px;
-  width: 400px;
+  width: 100%;
   margin: 0 auto;
   font-size: 28px;
   cursor: pointer;
+}
+
+.title {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 @include device.for-mobile {

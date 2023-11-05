@@ -1,4 +1,10 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  HostBinding,
+  Input,
+  Output,
+} from '@angular/core';
 import { FieldCell } from '../models/field-cell.interface';
 import { Position } from '../models/position.interface';
 import { ChangedLetter } from './models/changed-letter.interface';
@@ -9,12 +15,17 @@ import { ChangedLetter } from './models/changed-letter.interface';
   styleUrls: ['./room-field.component.scss'],
 })
 export class RoomFieldComponent {
+  @Input() public title = '';
   @Input() public editable = false;
   @Input() public selectable = false;
   @Input() public set matrix(value: string[][]) {
     this.resetState();
     this.cells = this.mapRoomMatrix(value);
   }
+
+  @HostBinding('class.blocked')
+  @Input()
+  public blocked = false;
 
   @Output() letterChanged = new EventEmitter<ChangedLetter>();
   @Output() positionsSelected = new EventEmitter<Position[]>();

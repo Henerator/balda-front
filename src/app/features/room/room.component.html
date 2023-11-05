@@ -10,10 +10,12 @@
 
   <div *ngIf="room" class="page-container">
     <ng-container [ngSwitch]="room.state">
-      <app-waiting-players
+      <app-room-field
         *ngSwitchCase="'waitingPlayers'"
         [matrix]="matrix"
-      ></app-waiting-players>
+        [title]="'Waiting players'"
+        [blocked]="true"
+      ></app-room-field>
 
       <div *ngSwitchCase="'game'" class="game-container">
         <app-room-field
@@ -48,7 +50,24 @@
         </div>
       </div>
 
-      <div *ngSwitchCase="'gameEnd'">Game end</div>
+      <div *ngSwitchCase="'gameEnd'" class="game-container">
+        <app-room-field
+          [matrix]="matrix"
+          [title]="'Game end'"
+          [blocked]="true"
+        ></app-room-field>
+
+        <div class="controls">
+          <div class="player-statistics-list margin-t-sm">
+            <app-player-statistics
+              *ngFor="let player of room.players"
+              [player]="player"
+              [highlighted]="player.name === room.currentPlayerName"
+              class="player-statistic"
+            ></app-player-statistics>
+          </div>
+        </div>
+      </div>
     </ng-container>
   </div>
 </ng-template>

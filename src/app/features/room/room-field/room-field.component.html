@@ -1,12 +1,15 @@
-<div [ngStyle]="{ '--rows': cells.length }" class="field">
-  <ng-container *ngFor="let row of cells; index as y">
-    <app-field-cell
-      *ngFor="let cell of row; index as x"
-      [value]="cell.value"
-      [editable]="editable"
-      [highlighted]="cell.selected"
-      (click)="onCellClick(x, y)"
-      (letterChanged)="onLetterChanged($event, x, y)"
-    ></app-field-cell>
-  </ng-container>
+<div class="field-container">
+  <div [ngStyle]="{ '--rows': cells.length }" class="field">
+    <ng-container *ngFor="let row of cells; index as y">
+      <app-field-cell
+        *ngFor="let cell of row; index as x"
+        [value]="cell.value"
+        [editable]="editable"
+        [highlighted]="cell.selected"
+        (click)="onCellClick(x, y)"
+        (letterChanged)="onLetterChanged($event, x, y)"
+      ></app-field-cell>
+    </ng-container>
+  </div>
+  <h1 *ngIf="title" class="title">{{ title }}</h1>
 </div>
