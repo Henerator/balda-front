@@ -2,16 +2,55 @@
 <html lang="en" class="theme-light">
   <head>
     <meta charset="utf-8" />
-    <title>Balda</title>
+    <title>Балда</title>
     <base href="/" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <meta
+      name="description"
+      content="Онлайн игра Балда - здесь вы можете потренировать свой мозг, развить эрудицию, скорость мышления, быстроту реакции, ассоциативные способности и просто провести время с пользой"
+    />
+    <meta
+      name="keywords"
+      content="онлайн, игра, балда, найди слово, скорость мышления, ассоциативные способности"
+    />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://roman-balda.ru" />
+    <meta property="og:title" content="Балда" />
+    <meta property="og:description" content="Играй онлайн" />
+
+    <meta
+      property="og:image"
+      content="https://roman-balda.ru/assets/logo-600-158.jpg"
+    />
+    <meta property="og:image:width" content="600" />
+    <meta property="og:image:height" content="158" />
+
+    <meta
+      property="og:image"
+      content="https://roman-balda.ru/assets/logo-1200-630.jpg"
+    />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+
     <link rel="icon" type="image/x-icon" href="favicon.ico" />
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap"
       rel="stylesheet"
     />
+
+    <link rel="manifest" href="manifest.json" />
+
+    <!-- service worker  -->
+    <script>
+      if ("serviceWorker" in navigator) {
+        navigator.serviceWorker.register("/service-worker.js");
+      }
+    </script>
   </head>
   <body>
     <app-root></app-root>
