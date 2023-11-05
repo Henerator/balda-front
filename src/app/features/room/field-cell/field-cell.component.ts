@@ -61,7 +61,7 @@ export class FieldCellComponent implements OnDestroy {
       this.changeSubscription = this.control.valueChanges.subscribe((value) => {
         if (!value) return;
 
-        const letter = value.substring(0, 1);
+        const letter = value.substring(0, 1).toLowerCase();
         const validatedLetter = this.validateLetter(letter);
 
         this.control.setValue(validatedLetter, { emitEvent: false });
