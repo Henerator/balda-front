@@ -10,6 +10,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { LetterValidatorService } from '@features/letter/letter-validator.service';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -45,6 +46,8 @@ export class FieldCellComponent implements OnDestroy {
 
   private changeSubscription?: Subscription;
 
+  constructor(private letterValidatorService: LetterValidatorService) {}
+
   ngOnDestroy(): void {
     this.changeSubscription?.unsubscribe();
   }
@@ -56,12 +59,17 @@ export class FieldCellComponent implements OnDestroy {
 
       this.changeSubscription?.unsubscribe();
       this.changeSubscription = this.control.valueChanges.subscribe((value) => {
-        // TODO: remove unsupported chars
         if (!value) return;
 
         const letter = value.substring(0, 1);
-        this.isEditing = false;
-        this.letterChanged.emit(letter);
+        const validatedLetter = this.validateLetter(letter);
+
+        this.control.setValue(validatedLetter, { emitEvent: false });
+
+        if (validatedLetter) {
+          this.isEditing = false;
+          this.letterChanged.emit(letter);
+        }
       });
       this.isEditing = true;
       this.focusInput();
@@ -74,5 +82,9 @@ export class FieldCellComponent implements OnDestroy {
 
   private focusInput(): void {
     setTimeout(() => (this.input?.nativeElement as HTMLInputElement).focus());
+  }
+
+  private validateLetter(letter: string): string | null {
+    return this.letterValidatorService.validate(letter);
   }
 }
