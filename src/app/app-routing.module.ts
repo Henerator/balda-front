@@ -17,7 +17,10 @@ const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    redirectTo: 'create',
+    loadChildren: () =>
+      import('./features/main-page/main-page.module').then(
+        (m) => m.MainPageModule
+      ),
   },
   {
     path: '**',

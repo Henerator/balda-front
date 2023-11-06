@@ -1,0 +1,56 @@
+<section class="section section_centered">
+  <div class="section__title">Балда онлайн</div>
+
+  <form
+    [formGroup]="createForm"
+    (ngSubmit)="onSubmit()"
+    class="create-game-form"
+  >
+    <button type="submit" class="button primary">Создать игру</button>
+  </form>
+</section>
+
+<div class="section section_secondary section_instruction">
+  <div class="step">
+    <div class="step__icon"></div>
+    <div class="step__description">Создай игру</div>
+  </div>
+  <div class="step">
+    <div class="step__icon"></div>
+    <div class="step__description">Пригласи друга</div>
+  </div>
+  <div class="step">
+    <div class="step__icon"></div>
+    <div class="step__description">Добавь новую букву</div>
+  </div>
+  <div class="step">
+    <div class="step__icon"></div>
+    <div class="step__description">Собери слово</div>
+  </div>
+</div>
+
+<div class="section section_centered">
+  <div class="section__title">Правила игры</div>
+
+  <div class="section__description">
+    Лингвистическая игра, в которой необходимо составлять слова с помощью букв,
+    добавляемых на игровое поле
+  </div>
+
+  <div class="section__description">
+    За каждое слово игрок получает столько очков, сколько букв содержит это
+    слово
+  </div>
+
+  <div class="section__description">
+    Принимаются существительные в единственном числе
+  </div>
+
+  <div class="section__description">
+    Не принимаются уже написанные ранее слова
+  </div>
+
+  <div class="section__description">
+    Чтобы стать победителем наберите больше очков, чем ваш оппонент
+  </div>
+</div>
