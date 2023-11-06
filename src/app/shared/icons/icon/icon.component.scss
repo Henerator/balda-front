@@ -1,0 +1,15 @@
+:host {
+  display: inline-block;
+  width: 32px;
+  height: 32px;
+
+  &.clickable {
+    cursor: pointer;
+  }
+}
+
+:host::ng-deep {
+  svg {
+    display: block;
+  }
+}
