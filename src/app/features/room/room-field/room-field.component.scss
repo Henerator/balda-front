@@ -16,7 +16,8 @@
 
 .field-container {
   position: relative;
-  width: 400px;
+  width: 100%;
+  max-width: 400px;
   display: flex;
   justify-content: center;
 }
@@ -37,6 +38,7 @@
   top: 50%;
   transform: translateY(-50%);
   color: var(--text);
+  text-align: center;
 }
 
 @include device.for-mobile {
