@@ -6,7 +6,7 @@ import { Observable, shareReplay } from 'rxjs';
 export class IconLoaderService {
   private readonly cachedIcons$ = new Map<string, Observable<string>>();
 
-  constructor(private readonly http: HttpClient) {}
+  constructor(private http: HttpClient) {}
 
   loadIcon(path: string): Observable<string> {
     if (!this.cachedIcons$.has(path)) {

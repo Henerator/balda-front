@@ -1,6 +1,8 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { Theme } from '@core/theme/theme.enum';
 import { ThemeService } from '@core/theme/theme.service';
+import { windowToken } from '@core/window/window.token';
+import { ClipboardService } from '@shared/clipboard/clipboard.service';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -11,18 +13,22 @@ import { Subscription } from 'rxjs';
 export class RoomControlsComponent implements OnInit, OnDestroy {
   theme: Theme | null = null;
 
-  private subscription?: Subscription;
+  private themeSubscription?: Subscription;
 
-  public constructor(private themeService: ThemeService) {}
+  public constructor(
+    private themeService: ThemeService,
+    private clipboardService: ClipboardService,
+    @Inject(windowToken) private window: Window
+  ) {}
 
   ngOnInit(): void {
-    this.subscription = this.themeService.themeChange$.subscribe(
+    this.themeSubscription = this.themeService.themeChange$.subscribe(
       (theme) => (this.theme = theme)
     );
   }
 
   ngOnDestroy(): void {
-    this.subscription?.unsubscribe();
+    this.themeSubscription?.unsubscribe();
   }
 
   onThemeToggle(): void {
@@ -32,5 +38,9 @@ export class RoomControlsComponent implements OnInit, OnDestroy {
     }
 
     this.themeService.setLightTheme();
+  }
+
+  onCopyRoomId() {
+    this.clipboardService.copy(this.window.location.href);
   }
 }

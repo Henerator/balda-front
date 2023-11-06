@@ -17,12 +17,12 @@ export class ThemeService {
   private storageKey = 'theme';
 
   constructor(
+    private storageService: StorageService,
     rendererFactory: RendererFactory2,
-    private readonly storageService: StorageService,
-    @Inject(windowToken) readonly window: Window
+    @Inject(windowToken) window: Window
   ) {
     this.renderer = rendererFactory.createRenderer(null, null);
-    this.htmlElement = this.window.document.documentElement;
+    this.htmlElement = window.document.documentElement;
     this.themeChange$ = this.themeChangeSubject.asObservable();
 
     this.restoreSavedTheme();

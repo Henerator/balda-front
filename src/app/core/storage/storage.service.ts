@@ -5,7 +5,7 @@ import { windowToken } from '@core/window/window.token';
   providedIn: 'root',
 })
 export class StorageService {
-  public constructor(@Inject(windowToken) private readonly window: Window) {}
+  public constructor(@Inject(windowToken) private window: Window) {}
 
   public getItem(key: string): string | null {
     return this.window.localStorage.getItem(key);

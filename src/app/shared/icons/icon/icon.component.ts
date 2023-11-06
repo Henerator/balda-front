@@ -26,8 +26,8 @@ export class IconComponent implements OnChanges {
   private readonly iconsPath = 'assets/icons';
 
   constructor(
-    private readonly domSanitizer: DomSanitizer,
-    private readonly iconLoaderService: IconLoaderService
+    private domSanitizer: DomSanitizer,
+    private iconLoaderService: IconLoaderService
   ) {}
 
   ngOnChanges(changes: SimpleChanges): void {

@@ -13,6 +13,7 @@ import { RoomControlsComponent } from './room-controls/room-controls.component';
 import { RoomFieldComponent } from './room-field/room-field.component';
 import { RoomRoutingModule } from './room-routing.module';
 import { RoomComponent } from './room.component';
+import { ClipboardModule } from '@shared/clipboard/clipboard.module';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { RoomComponent } from './room.component';
     CommonModule,
     ReactiveFormsModule,
 
+    ClipboardModule,
     LoaderModule,
     IconsModule,
     LetterModule,
