@@ -10,7 +10,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { LetterValidatorService } from '@features/letter/letter-validator.service';
+import { LetterValidatorService } from '@shared/letter/letter-validator.service';
 import { Subscription } from 'rxjs';
 
 @Component({
