@@ -13,26 +13,8 @@
   justify-content: center;
 }
 
-.game-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.controls {
-  width: 400px;
-}
-
-.player-statistics-list {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  column-gap: 12px;
-}
-
-.player-statistic {
-  &:nth-child(odd) {
-    text-align: right;
-  }
+.room-controls {
+  margin-bottom: 12px;
 }
 
 @include device.for-mobile {

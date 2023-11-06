@@ -12,7 +12,7 @@ export class ThemeService {
 
   private renderer: Renderer2;
   private htmlElement: HTMLElement;
-  private themeChangeSubject = new BehaviorSubject<Theme>(Theme.dark);
+  private themeChangeSubject = new BehaviorSubject<Theme>(Theme.light);
 
   constructor(
     rendererFactory: RendererFactory2,
