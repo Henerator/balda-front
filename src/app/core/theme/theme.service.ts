@@ -24,8 +24,6 @@ export class ThemeService {
     this.renderer = rendererFactory.createRenderer(null, null);
     this.htmlElement = window.document.documentElement;
     this.themeChange$ = this.themeChangeSubject.asObservable();
-
-    this.restoreSavedTheme();
   }
 
   setLightTheme(): void {
@@ -34,6 +32,14 @@ export class ThemeService {
 
   setDarkTheme(): void {
     this.setTheme(Theme.dark);
+  }
+
+  public restoreSavedTheme(): void {
+    const savedTheme = this.storageService.getItem(this.storageKey);
+    if (savedTheme !== Theme.light && savedTheme !== Theme.dark) return;
+
+    this.themeChangeSubject.next(savedTheme);
+    this.applyTheme(savedTheme);
   }
 
   private setTheme(theme: Theme): void {
@@ -53,13 +59,5 @@ export class ThemeService {
 
   private saveTheme(theme: Theme): void {
     this.storageService.setItem(this.storageKey, theme);
-  }
-
-  private restoreSavedTheme(): void {
-    const savedTheme = this.storageService.getItem(this.storageKey);
-    if (savedTheme !== Theme.light && savedTheme !== Theme.dark) return;
-
-    this.themeChangeSubject.next(savedTheme);
-    this.applyTheme(savedTheme);
   }
 }
