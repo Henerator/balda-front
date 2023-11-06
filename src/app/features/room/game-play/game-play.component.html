@@ -1,0 +1,32 @@
+<app-icon [name]="'sun'"></app-icon>
+
+<app-room-field
+  [matrix]="matrix"
+  [editable]="gameState === gameStates.addLetter"
+  [selectable]="gameState === gameStates.selectWord"
+  (letterChanged)="letterChanged.emit($event)"
+  (positionsSelected)="positionsSelected.emit($event)"
+></app-room-field>
+
+<div class="controls">
+  <div
+    *ngIf="gameState === gameStates.selectWord && changedLetter"
+    class="margin-t-sm margin-b-sm"
+  >
+    <button (click)="wordApplied.emit()" class="button primary margin-b-sm">
+      Принять
+    </button>
+    <button (click)="wordCanceled.emit()" class="button secondary">
+      Отменить
+    </button>
+  </div>
+
+  <div class="player-statistics-list margin-t-sm">
+    <app-player-statistics
+      *ngFor="let player of room.players"
+      [player]="player"
+      [highlighted]="player.name === room.currentPlayerName"
+      class="player-statistic"
+    ></app-player-statistics>
+  </div>
+</div>

@@ -1,0 +1,15 @@
+<app-room-field
+  [matrix]="matrix"
+  [title]="'Игра окончена'"
+  [blocked]="true"
+></app-room-field>
+
+<div class="controls">
+  <div class="player-statistics-list margin-t-sm">
+    <app-player-statistics
+      *ngFor="let player of room.players"
+      [player]="player"
+      class="player-statistic"
+    ></app-player-statistics>
+  </div>
+</div>

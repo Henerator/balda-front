@@ -17,57 +17,23 @@
         [blocked]="true"
       ></app-room-field>
 
-      <div *ngSwitchCase="'game'" class="game-container">
-        <app-room-field
-          [matrix]="matrix"
-          [editable]="gameState === gameStates.addLetter"
-          [selectable]="gameState === gameStates.selectWord"
-          (letterChanged)="onAddLeter($event)"
-          (positionsSelected)="onPositionsSelected($event)"
-        ></app-room-field>
+      <app-game-play
+        *ngSwitchCase="'game'"
+        [room]="room"
+        [matrix]="matrix"
+        [gameState]="gameState"
+        [changedLetter]="changedLetter"
+        (letterChanged)="onAddLeter($event)"
+        (positionsSelected)="onPositionsSelected($event)"
+        (wordApplied)="onApplyWord()"
+        (wordCanceled)="onCancelWord()"
+      ></app-game-play>
 
-        <div class="controls">
-          <div
-            *ngIf="gameState === gameStates.selectWord && changedLetter"
-            class="margin-t-sm margin-b-sm"
-          >
-            <button (click)="onApplyWord()" class="button primary margin-b-sm">
-              Принять
-            </button>
-            <button (click)="onCancelWord()" class="button secondary">
-              Отменить
-            </button>
-          </div>
-
-          <div class="player-statistics-list margin-t-sm">
-            <app-player-statistics
-              *ngFor="let player of room.players"
-              [player]="player"
-              [highlighted]="player.name === room.currentPlayerName"
-              class="player-statistic"
-            ></app-player-statistics>
-          </div>
-        </div>
-      </div>
-
-      <div *ngSwitchCase="'gameEnd'" class="game-container">
-        <app-room-field
-          [matrix]="matrix"
-          [title]="'Игра окончена'"
-          [blocked]="true"
-        ></app-room-field>
-
-        <div class="controls">
-          <div class="player-statistics-list margin-t-sm">
-            <app-player-statistics
-              *ngFor="let player of room.players"
-              [player]="player"
-              [highlighted]="player.name === room.currentPlayerName"
-              class="player-statistic"
-            ></app-player-statistics>
-          </div>
-        </div>
-      </div>
+      <app-game-end
+        *ngSwitchCase="'gameEnd'"
+        [room]="room"
+        [matrix]="matrix"
+      ></app-game-end>
     </ng-container>
   </div>
 </ng-template>
