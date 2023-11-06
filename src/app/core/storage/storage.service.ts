@@ -1,7 +1,9 @@
 import { Inject, Injectable } from '@angular/core';
 import { windowToken } from '@core/window/window.token';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class StorageService {
   public constructor(@Inject(windowToken) private readonly window: Window) {}
 

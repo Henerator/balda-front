@@ -1,18 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
+import { StorageService } from '@core/storage/storage.service';
 import { environment } from '@env/environment';
 import { Room } from '@shared/room-api/room.interface';
-import { StorageService } from '@shared/storage/storage.service';
 import { Socket, io } from 'socket.io-client';
 import { JoinForm } from './join-form/models/join-form.interface';
 import { ClientToServerEvents } from './models/client-to-server-events.interface';
 import { GameState } from './models/game-state.enum';
 import { Position } from './models/position.interface';
+import { RoomErrorId } from './models/room-error-id.enum';
 import { RoomMessage } from './models/room-message.enum';
 import { ServerToClientEvents } from './models/server-to-client-events.interface';
 import { StorageRoom } from './models/storage-room.interface';
 import { ChangedLetter } from './room-field/models/changed-letter.interface';
-import { RoomErrorId } from './models/room-error-id.enum';
 
 @Component({
   selector: 'app-room',

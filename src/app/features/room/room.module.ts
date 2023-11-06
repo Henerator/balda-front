@@ -4,7 +4,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { IconsModule } from '@shared/icons/icons.module';
 import { LetterModule } from '@shared/letter/letter.module';
 import { LoaderModule } from '@shared/loader/loader.module';
-import { StorageModule } from '@shared/storage/storage.module';
 import { FieldCellComponent } from './field-cell/field-cell.component';
 import { GameEndComponent } from './game-end/game-end.component';
 import { GamePlayComponent } from './game-play/game-play.component';
@@ -30,7 +29,6 @@ import { RoomComponent } from './room.component';
     CommonModule,
     ReactiveFormsModule,
 
-    StorageModule,
     LoaderModule,
     IconsModule,
     LetterModule,
