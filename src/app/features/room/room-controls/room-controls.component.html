@@ -3,6 +3,12 @@
   (click)="onThemeToggle()"
 ></app-icon>
 
-<div>
-  <app-icon [name]="'copy'" (click)="onCopyRoomId()"></app-icon>
+<div class="icons-set">
+  <app-icon [name]="'copy'" (click)="onCopyRoom()" class="icon"></app-icon>
+  <app-icon
+    *ngIf="canShare"
+    [name]="'share'"
+    (click)="onShare()"
+    class="icon"
+  ></app-icon>
 </div>

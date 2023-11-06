@@ -5,3 +5,9 @@
   width: 100%;
   max-width: 400px;
 }
+
+.icons-set {
+  .icon:not(:last-child) {
+    margin-right: 12px;
+  }
+}
