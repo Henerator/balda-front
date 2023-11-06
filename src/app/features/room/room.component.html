@@ -13,7 +13,7 @@
       <app-room-field
         *ngSwitchCase="'waitingPlayers'"
         [matrix]="matrix"
-        [title]="'Waiting players'"
+        [title]="'Ожидание игроков'"
         [blocked]="true"
       ></app-room-field>
 
@@ -53,7 +53,7 @@
       <div *ngSwitchCase="'gameEnd'" class="game-container">
         <app-room-field
           [matrix]="matrix"
-          [title]="'Game end'"
+          [title]="'Игра окончена'"
           [blocked]="true"
         ></app-room-field>
 
