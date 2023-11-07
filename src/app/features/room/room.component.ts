@@ -30,6 +30,7 @@ export class RoomComponent implements OnInit {
 
   public changedLetter: ChangedLetter | null = null;
   public selectedPositions: Position[] = [];
+  public applyWordErrors = 0;
 
   private roomId: string | null = null;
   private socket: Socket<ServerToClientEvents, ClientToServerEvents> = io(
@@ -48,15 +49,14 @@ export class RoomComponent implements OnInit {
         case RoomErrorId.wordNotFound:
         case RoomErrorId.wordAlreadyUsed:
           this.resetSelectedWord();
+          this.applyWordErrors++;
           break;
         default:
-          console.log('[LOG] unknown error', message);
           break;
       }
     });
 
     this.socket.on(RoomMessage.room, (room) => {
-      console.log('[LOG] room', room);
       this.room = room;
       this.udpateMatrix(room);
       this.updateGameState(room);
@@ -97,19 +97,16 @@ export class RoomComponent implements OnInit {
   }
 
   onAddLeter(changedLetter: ChangedLetter) {
-    console.log('[LOG] changed letter', changedLetter);
     this.changedLetter = changedLetter;
     this.gameState = GameState.selectWord;
   }
 
   onPositionsSelected(positions: Position[]): void {
-    console.log('[LOG] selectedPositions', positions);
     this.selectedPositions = positions;
   }
 
   onApplyWord(): void {
     if (!this.roomId || !this.playerName || !this.changedLetter) {
-      console.log('[LOG] no required attributes');
       return;
     }
 

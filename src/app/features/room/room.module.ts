@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ClipboardModule } from '@shared/clipboard/clipboard.module';
 import { IconsModule } from '@shared/icons/icons.module';
 import { LetterModule } from '@shared/letter/letter.module';
 import { LoaderModule } from '@shared/loader/loader.module';
@@ -13,7 +14,6 @@ import { RoomControlsComponent } from './room-controls/room-controls.component';
 import { RoomFieldComponent } from './room-field/room-field.component';
 import { RoomRoutingModule } from './room-routing.module';
 import { RoomComponent } from './room.component';
-import { ClipboardModule } from '@shared/clipboard/clipboard.module';
 
 @NgModule({
   declarations: [
