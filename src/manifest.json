@@ -1,10 +1,10 @@
 {
   "id": "/",
-  "name": "Balda",
-  "short_name": "Balda",
+  "name": "Балда",
+  "short_name": "Балда",
   "start_url": "/",
   "display": "standalone",
-  "description": "Play Balda game online",
+  "description": "Балда онлайн",
   "icons": [
     {
       "src": "/assets/logo/logo-48.png",
