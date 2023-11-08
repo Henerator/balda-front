@@ -3,6 +3,8 @@ import { ActivatedRoute, ParamMap } from '@angular/router';
 import { StorageService } from '@core/storage/storage.service';
 import { environment } from '@env/environment';
 import { Room } from '@shared/room-api/room.interface';
+import { Sound } from '@shared/sound/sound.enum';
+import { SoundService } from '@shared/sound/sound.service';
 import { Socket, io } from 'socket.io-client';
 import { JoinForm } from './join-form/models/join-form.interface';
 import { ClientToServerEvents } from './models/client-to-server-events.interface';
@@ -32,6 +34,7 @@ export class RoomComponent implements OnInit {
   public selectedPositions: Position[] = [];
   public applyWordErrors = 0;
 
+  private roomInitialized = false;
   private roomId: string | null = null;
   private socket: Socket<ServerToClientEvents, ClientToServerEvents> = io(
     `${environment.socketServerUrl}/room`
@@ -39,6 +42,7 @@ export class RoomComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
+    private soundService: SoundService,
     private storageService: StorageService
   ) {}
 
@@ -61,6 +65,8 @@ export class RoomComponent implements OnInit {
       this.udpateMatrix(room);
       this.updateGameState(room);
 
+      this.notifyCurrentPlayer(room);
+      this.setRoomInitialized();
       this.setLoading(false);
     });
 
@@ -130,6 +136,10 @@ export class RoomComponent implements OnInit {
     this.loading = state;
   }
 
+  private setRoomInitialized(): void {
+    this.roomInitialized = true;
+  }
+
   private resetSelectedWord(): void {
     this.changedLetter = null;
     this.selectedPositions = [];
@@ -146,6 +156,10 @@ export class RoomComponent implements OnInit {
     return this.storageService.getObject<StorageRoom>(key)?.playerName ?? null;
   }
 
+  private isMyTurn(room: Room): boolean {
+    return room.currentPlayerName === this.playerName;
+  }
+
   private joinRoom(roomId: string, playerName: string): void {
     this.socket.emit(RoomMessage.join, {
       roomId,
@@ -159,11 +173,17 @@ export class RoomComponent implements OnInit {
   }
 
   private updateGameState(room: Room): void {
-    if (room.currentPlayerName !== this.playerName) {
+    if (!this.isMyTurn(room)) {
       this.gameState = GameState.waitingMyTurn;
       return;
     }
 
     this.gameState = GameState.addLetter;
+  }
+
+  private notifyCurrentPlayer(room: Room): void {
+    if (this.roomInitialized && this.isMyTurn(room)) {
+      this.soundService.play(Sound.myTurn);
+    }
   }
 }
