@@ -3,13 +3,6 @@ import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
-    path: 'create',
-    loadChildren: () =>
-      import('./features/create-room/create-room.module').then(
-        (m) => m.CreateRoomModule
-      ),
-  },
-  {
     path: 'room',
     loadChildren: () =>
       import('./features/room/room.module').then((m) => m.RoomModule),
@@ -24,7 +17,7 @@ const routes: Routes = [
   },
   {
     path: '**',
-    redirectTo: 'create',
+    redirectTo: '',
   },
 ];
 
