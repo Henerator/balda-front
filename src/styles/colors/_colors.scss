@@ -1,15 +1,19 @@
 html {
-  --text: #ebeaea;
-  --background: #080707;
-  --primary: #bebfba;
-  --secondary: #2f3231;
-  --accent: #93929b;
+  --text: #fff;
+  --text-secondary: #6b6e70;
+  --text-on-primary: #eee;
+  --text-on-secondary: #eee;
+  --background: #222629;
+  --primary: #86c232;
+  --secondary: #61892f;
 }
 
 html.theme-light {
   --text: #070802;
+  --text-secondary: #6b6e70;
+  --text-on-primary: #eee;
+  --text-on-secondary: #fff;
   --background: #f6faeb;
   --primary: #768f24;
-  --secondary: #dcebad;
-  --accent: #87a329;
+  --secondary: #b2c47a;
 }

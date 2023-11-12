@@ -4,12 +4,13 @@
   width: 100%;
   padding: 0.75em 1em;
   background: var(--secondary);
-  color: var(--text);
+  color: var(--text-on-secondary);
   font: inherit;
   line-height: normal;
   border-radius: var(--border-radius-button);
 
-  &.primary {
-    border-color: var(--primary);
+  &::placeholder {
+    color: var(--text-on-secondary);
+    opacity: 0.5;
   }
 }

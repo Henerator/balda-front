@@ -10,11 +10,13 @@
   &.primary {
     --btn-primary: var(--primary);
 
-    color: var(--background);
+    color: var(--text-on-primary);
   }
 
   &.secondary {
     --btn-primary: var(--secondary);
+
+    color: var(--text-on-secondary);
   }
 
   &:hover {
