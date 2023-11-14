@@ -5,6 +5,7 @@ import {
   Input,
   Output,
 } from '@angular/core';
+import { LetterSequenceRule } from '@shared/room-api/letter-sequence-rule.enum';
 import { Room } from '@shared/room-api/room.interface';
 import { GameState } from '../models/game-state.enum';
 import { Position } from '../models/position.interface';

@@ -1,6 +1,7 @@
 <app-room-field
   [matrix]="matrix"
   [editable]="gameState === gameStates.addLetter"
+  [letterSequenceRules]="room.letterSequenceRules"
   [selectable]="gameState === gameStates.selectWord"
   (letterChanged)="letterChanged.emit($event)"
   (positionsSelected)="positionsSelected.emit($event)"

@@ -6,7 +6,16 @@
     (ngSubmit)="onSubmit()"
     class="create-game-form"
   >
-    <button type="submit" class="button primary">Создать игру</button>
+    <ui-expansion-panel [title]="'Настройки'" class="form-item">
+      <app-checkbox
+        [id]="'allowDiagonalLetter'"
+        [formControlName]="'allowDiagonalLetter'"
+        [label]="'Разрешить слова по диагонали'"
+        class="margin-b-sm"
+      ></app-checkbox>
+    </ui-expansion-panel>
+
+    <button type="submit" class="button primary form-item">Создать игру</button>
   </form>
 </article>
 

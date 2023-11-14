@@ -1,3 +1,4 @@
+import { LetterSequenceRule } from './letter-sequence-rule.enum';
 import { RoomPlayer } from './room-player.interface';
 import { RoomState } from './room-state.enum';
 
@@ -9,4 +10,5 @@ export interface Room {
   currentPlayerName: string | null;
   players: RoomPlayer[];
   matrix: string[][];
+  letterSequenceRules: LetterSequenceRule[];
 }

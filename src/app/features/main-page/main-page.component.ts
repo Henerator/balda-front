@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { RoomApiService } from '@shared/room-api/room-api.service';
 import { Room } from '@shared/room-api/room.interface';
@@ -10,13 +10,17 @@ import { Room } from '@shared/room-api/room.interface';
   styleUrls: ['./main-page.component.scss'],
 })
 export class MainPageComponent {
-  public createForm = new FormGroup({});
+  public createForm = new FormGroup({
+    allowDiagonalLetter: new FormControl<boolean>(false),
+  });
 
   constructor(private router: Router, private roomApiService: RoomApiService) {}
 
   onSubmit(): void {
-    this.roomApiService.createRoom({ size: 5 }).subscribe((room: Room) => {
-      this.router.navigate(['room', room._id]);
-    });
+    this.roomApiService
+      .createRoom({ ...this.createForm.value, size: 5 })
+      .subscribe((room: Room) => {
+        this.router.navigate(['room', room._id]);
+      });
   }
 }

@@ -8,6 +8,9 @@ import {
 import { FieldCell } from '../models/field-cell.interface';
 import { Position } from '../models/position.interface';
 import { ChangedLetter } from './models/changed-letter.interface';
+import { SequenceValidator } from './sequence-validators/sequence-validator.type';
+import { sequenceValidatorsMap } from './sequence-validators/sequence-validators.map';
+import { LetterSequenceRule } from '@shared/room-api/letter-sequence-rule.enum';
 
 @Component({
   selector: 'app-room-field',
@@ -18,6 +21,7 @@ export class RoomFieldComponent {
   @Input() public title = '';
   @Input() public editable = false;
   @Input() public selectable = false;
+  @Input() public letterSequenceRules: LetterSequenceRule[] = [];
   @Input() public set matrix(value: string[][]) {
     this.resetState();
     this.cells = this.mapRoomMatrix(value);
@@ -58,7 +62,7 @@ export class RoomFieldComponent {
       return;
     }
 
-    if (lastSelected && !this.validNextSelection(lastSelected, x, y)) {
+    if (lastSelected && !this.validNextSelection(lastSelected, { x, y })) {
       return;
     }
 
@@ -80,14 +84,18 @@ export class RoomFieldComponent {
     );
   }
 
-  private validNextSelection(
-    lastSelected: Position,
-    x: number,
-    y: number
-  ): boolean {
-    return (
-      (lastSelected.x === x && Math.abs(lastSelected.y - y) === 1) ||
-      (lastSelected.y === y && Math.abs(lastSelected.x - x) === 1)
-    );
+  private validNextSelection(previous: Position, current: Position): boolean {
+    const validators = this.getSequenceValidators(this.letterSequenceRules);
+    return validators.some((validator) => validator(previous, current));
+  }
+
+  private getSequenceValidators(
+    roomRules: LetterSequenceRule[]
+  ): SequenceValidator[] {
+    return [
+      LetterSequenceRule.horizontal,
+      LetterSequenceRule.vertical,
+      ...roomRules,
+    ].map((rule) => sequenceValidatorsMap[rule]);
   }
 }
