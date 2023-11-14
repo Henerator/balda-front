@@ -1,0 +1,31 @@
+:host {
+  display: block;
+
+  &.expended {
+    .title::before {
+      width: 100%;
+    }
+  }
+}
+
+.title {
+  position: relative;
+  color: var(--secondary);
+  cursor: pointer;
+
+  &::before {
+    content: "";
+    display: block;
+    position: absolute;
+    left: 0;
+    bottom: -4px;
+    height: 2px;
+    width: 0;
+    background-color: var(--secondary);
+    transition: width 300ms ease-out;
+  }
+}
+
+.content {
+  margin-top: 16px;
+}

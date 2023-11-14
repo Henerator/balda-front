@@ -1,0 +1,7 @@
+<div (click)="showContent = !showContent" class="title">{{ title }}</div>
+
+<div *ngIf="showContent" class="content">
+  <ng-container *ngTemplateOutlet="content"></ng-container>
+</div>
+
+<ng-template #content><ng-content></ng-content></ng-template>
