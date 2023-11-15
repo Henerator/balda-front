@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { StorageService } from '@core/storage/storage.service';
 import { environment } from '@env/environment';
 import { Room } from '@shared/room-api/room.interface';
@@ -42,6 +42,7 @@ export class RoomComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private soundService: SoundService,
     private storageService: StorageService
   ) {}
@@ -50,6 +51,10 @@ export class RoomComponent implements OnInit {
     this.socket.on(RoomMessage.error, (message) => {
       console.log('[LOG] error', message);
       switch (message.id) {
+        case RoomErrorId.roomNotFound:
+          this.redirectToNotFound();
+          break;
+
         case RoomErrorId.wordNotFound:
         case RoomErrorId.wordAlreadyUsed:
           this.resetSelectedWord();
@@ -89,7 +94,6 @@ export class RoomComponent implements OnInit {
   }
 
   onJoinSubmit(joinForm: JoinForm): void {
-    // TODO: handle empty cases
     if (!this.roomId) return;
 
     const playerName = joinForm.name;
@@ -134,6 +138,10 @@ export class RoomComponent implements OnInit {
 
   private setLoading(state: boolean): void {
     this.loading = state;
+  }
+
+  private redirectToNotFound(): void {
+    this.router.navigate(['404']);
   }
 
   private setRoomInitialized(): void {

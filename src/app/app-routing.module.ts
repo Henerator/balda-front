@@ -8,6 +8,13 @@ const routes: Routes = [
       import('./features/room/room.module').then((m) => m.RoomModule),
   },
   {
+    path: '404',
+    loadChildren: () =>
+      import('./features/not-found/not-found.module').then(
+        (m) => m.NotFoundModule
+      ),
+  },
+  {
     path: '',
     pathMatch: 'full',
     loadChildren: () =>

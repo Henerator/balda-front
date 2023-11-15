@@ -1,0 +1,43 @@
+:host {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  width: 100%;
+  font-size: clamp(3rem, 5vw, 7rem);
+}
+
+.letter {
+  padding: 20px 30px;
+  text-align: center;
+  background: var(--secondary);
+  color: var(--background);
+  border-radius: 4px;
+  animation: select-letter-animation 6s step-end infinite;
+
+  &:not(:last-child) {
+    margin-right: 12px;
+  }
+
+  &:nth-child(2) {
+    animation-delay: 1s;
+  }
+  &:nth-child(3) {
+    animation-delay: 2s;
+  }
+}
+
+@keyframes select-letter-animation {
+  0% {
+    background: var(--secondary);
+    color: var(--background);
+  }
+  50% {
+    background: var(--primary);
+    color: var(--text-on-primary);
+  }
+  100% {
+    background: var(--secondary);
+    color: var(--background);
+  }
+}
