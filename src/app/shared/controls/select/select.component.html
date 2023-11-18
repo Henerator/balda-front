@@ -1,0 +1,15 @@
+<div *ngIf="label" class="label">{{ label }}</div>
+
+<div (click)="toggleDropdown()" class="value-container">
+  <div *ngIf="selectedOption" class="value">{{ selectedOption.name }}</div>
+</div>
+
+<div *ngIf="opened" class="dropdown">
+  <div
+    *ngFor="let option of options; trackBy: trackByFn"
+    (click)="onSelectOption(option)"
+    class="option"
+  >
+    {{ option.name }}
+  </div>
+</div>
