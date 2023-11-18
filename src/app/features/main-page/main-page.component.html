@@ -13,6 +13,13 @@
         [label]="'Разрешить слова по диагонали'"
         class="margin-b-sm"
       ></app-checkbox>
+
+      <app-select
+        [id]="'size'"
+        [formControlName]="'size'"
+        [options]="sizeOptions"
+        class="margin-b-sm"
+      ></app-select>
     </ui-expansion-panel>
 
     <button type="submit" class="button primary form-item">Создать игру</button>

@@ -1,3 +1,4 @@
 export interface CreateRoomDto {
-  size: number;
+  size?: number | null;
+  allowDiagonalLetter?: boolean | null;
 }
