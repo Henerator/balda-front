@@ -1,0 +1,13 @@
+.link {
+  color: var(--secondary);
+  text-decoration: none;
+
+  &:visited,
+  &:active {
+    color: var(--secondary);
+  }
+
+  &:hover {
+    color: var(--primary);
+  }
+}
