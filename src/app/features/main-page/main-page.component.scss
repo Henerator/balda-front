@@ -58,15 +58,9 @@
   }
 }
 
-.create-game-form {
-  margin-top: 1.7rem;
+.create-form {
   width: 100%;
   max-width: 370px;
-  font-size: clamp(1rem, 1vw, 2rem);
-}
-
-.form-item:not(:last-child) {
-  margin-bottom: 12px;
 }
 
 .step {

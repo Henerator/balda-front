@@ -5,6 +5,7 @@
         *ngFor="let cell of row; index as x"
         [value]="cell.value"
         [editable]="editable"
+        [count]="cell.selectionCount"
         [highlighted]="cell.selected"
         (click)="onCellClick(x, y)"
         (letterChanged)="onLetterChanged($event, x, y)"

@@ -1,29 +1,10 @@
 <article class="section section_centered">
   <h2 class="section__title">Балда онлайн</h2>
 
-  <form
-    [formGroup]="createForm"
-    (ngSubmit)="onSubmit()"
-    class="create-game-form"
-  >
-    <ui-expansion-panel [title]="'Настройки'" class="form-item">
-      <app-checkbox
-        [id]="'allowDiagonalLetter'"
-        [formControlName]="'allowDiagonalLetter'"
-        [label]="'Разрешить слова по диагонали'"
-        class="margin-b-sm"
-      ></app-checkbox>
-
-      <app-select
-        [id]="'size'"
-        [formControlName]="'size'"
-        [options]="sizeOptions"
-        class="margin-b-sm"
-      ></app-select>
-    </ui-expansion-panel>
-
-    <button type="submit" class="button primary form-item">Создать игру</button>
-  </form>
+  <app-create-form
+    (formSubmit)="onSubmit($event)"
+    class="create-form"
+  ></app-create-form>
 </article>
 
 <article class="section section_secondary section_instruction">

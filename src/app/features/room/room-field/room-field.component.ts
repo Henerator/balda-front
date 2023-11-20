@@ -2,6 +2,7 @@ import {
   Component,
   EventEmitter,
   HostBinding,
+  HostListener,
   Input,
   Output,
 } from '@angular/core';
@@ -37,6 +38,9 @@ export class RoomFieldComponent {
   public cells: FieldCell[][] = [];
 
   private selectedPositions: Position[] = [];
+  private longSelection = false;
+  private longSelectionDelay = 400;
+  private longSelectionTimer: number | null = null;
 
   onLetterChanged(letter: string, x: number, y: number): void {
     this.cells[y][x].value = letter;
@@ -54,34 +58,83 @@ export class RoomFieldComponent {
 
     if (this.cells[y][x].selected) {
       if (lastSelected?.x === x && lastSelected?.y === y) {
-        this.cells[y][x].selected = false;
-        this.selectedPositions.pop();
-        this.positionsSelected.emit(this.selectedPositions);
-      }
+        if (this.duplcateAllowed() && this.longSelection) {
+          this.selectCell(x, y);
+          return;
+        }
 
-      return;
+        this.deselectCell(x, y);
+        return;
+      }
     }
 
     if (lastSelected && !this.validNextSelection(lastSelected, { x, y })) {
       return;
     }
 
-    this.cells[y][x].selected = true;
-    this.selectedPositions.push({ x, y });
-    this.positionsSelected.emit(this.selectedPositions);
+    this.selectCell(x, y);
+  }
+
+  @HostListener('pointerdown')
+  onPointerDown(): void {
+    if (!this.selectable) return;
+    this.clearLongSelectionTimeout();
+    this.longSelection = false;
+    this.longSelectionTimer = window.setTimeout(
+      () => (this.longSelection = true),
+      this.longSelectionDelay
+    );
+  }
+
+  @HostListener('document:pointerup')
+  onPointerUp(): void {
+    this.clearLongSelectionTimeout();
+  }
+
+  private clearLongSelectionTimeout(): void {
+    if (this.longSelectionTimer) {
+      window.clearTimeout(this.longSelectionTimer);
+    }
   }
 
   private resetState(): void {
     this.selectedPositions = [];
+    this.longSelection = false;
+  }
+
+  private selectCell(x: number, y: number): void {
+    this.cells[y][x].selected = true;
+    this.cells[y][x].selectionCount++;
+
+    this.selectedPositions.push({ x, y });
+    this.positionsSelected.emit(this.selectedPositions);
+  }
+
+  private deselectCell(x: number, y: number): void {
+    this.cells[y][x].selectionCount--;
+    if (this.cells[y][x].selectionCount === 0) {
+      this.cells[y][x].selected = false;
+    }
+
+    this.selectedPositions.pop();
+    this.positionsSelected.emit(this.selectedPositions);
   }
 
   private mapRoomMatrix(matrix: string[][]): FieldCell[][] {
     return matrix.map((row) =>
-      row.map((value) => ({
-        value,
-        selected: false,
-      }))
+      row.map(
+        (value) =>
+          ({
+            value,
+            selected: false,
+            selectionCount: 0,
+          } as FieldCell)
+      )
     );
+  }
+
+  private duplcateAllowed(): boolean {
+    return this.letterSequenceRules.includes(LetterSequenceRule.duplicate);
   }
 
   private validNextSelection(previous: Position, current: Position): boolean {

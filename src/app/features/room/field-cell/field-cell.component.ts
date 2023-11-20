@@ -21,6 +21,7 @@ import { Subscription } from 'rxjs';
 export class FieldCellComponent implements OnDestroy {
   @Input() public value: string | null = null;
   @Input() public editable = false;
+  @Input() public count = 0;
 
   @HostBinding('class.highlighted')
   @Input()
