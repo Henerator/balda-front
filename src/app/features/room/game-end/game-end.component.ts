@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { Router } from '@angular/router';
 import { Room } from '@shared/room-api/room.interface';
 
 @Component({
@@ -9,4 +10,10 @@ import { Room } from '@shared/room-api/room.interface';
 export class GameEndComponent {
   @Input() room!: Room;
   @Input() matrix: string[][] = [];
+
+  constructor(private router: Router) {}
+
+  onCreateNewGame() {
+    this.router.navigate(['/']);
+  }
 }

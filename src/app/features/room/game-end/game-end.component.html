@@ -5,6 +5,12 @@
 ></app-room-field>
 
 <div class="controls">
+  <div class="margin-t-md">
+    <button (click)="onCreateNewGame()" type="button" class="button secondary">
+      Новая игра
+    </button>
+  </div>
+
   <div class="player-statistics-list margin-t-sm">
     <app-player-statistics
       *ngFor="let player of room.players"
