@@ -13,8 +13,7 @@ export class ThemeService {
 
   private renderer: Renderer2;
   private htmlElement: HTMLElement;
-  private themeChangeSubject = new BehaviorSubject<Theme>(Theme.light);
-  private storageKey = 'theme';
+  private themeChangeSubject = new BehaviorSubject<Theme>(Theme.dark);
 
   constructor(
     private storageService: StorageService,
@@ -35,7 +34,7 @@ export class ThemeService {
   }
 
   public restoreSavedTheme(): void {
-    const savedTheme = this.storageService.getItem(this.storageKey);
+    const savedTheme = this.storageService.getTheme();
     if (savedTheme !== Theme.light && savedTheme !== Theme.dark) return;
 
     this.themeChangeSubject.next(savedTheme);
@@ -58,6 +57,6 @@ export class ThemeService {
   }
 
   private saveTheme(theme: Theme): void {
-    this.storageService.setItem(this.storageKey, theme);
+    this.storageService.setTheme(theme);
   }
 }

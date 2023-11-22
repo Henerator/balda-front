@@ -19,9 +19,8 @@
     color: var(--text-on-secondary);
   }
 
-  &:hover {
+  &:hover,
+  &:focus {
     box-shadow: 0 10px 10px -10px var(--btn-primary);
   }
-
-  // TODO: focus state for keyboard navigation
 }

@@ -169,6 +169,7 @@ export class RoomComponent implements OnInit {
   }
 
   private joinRoom(roomId: string, playerName: string): void {
+    this.storageService.saveLatestRoomId(roomId);
     this.socket.emit(RoomMessage.join, {
       roomId,
       playerName,
