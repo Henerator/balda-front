@@ -1,6 +1,7 @@
 @use "src/styles/device/device";
 
 .section {
+  position: relative;
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -56,6 +57,13 @@
       display: none;
     }
   }
+}
+
+.theme-toggler {
+  position: absolute;
+  left: 0;
+  top: 0;
+  padding: 12px;
 }
 
 .form-container {

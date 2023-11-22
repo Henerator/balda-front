@@ -6,6 +6,7 @@ import { IconsModule } from '@shared/icons/icons.module';
 import { LetterModule } from '@shared/letter/letter.module';
 import { LoaderModule } from '@shared/loader/loader.module';
 import { SoundModule } from '@shared/sound/sound.module';
+import { ThemeTogglerModule } from '@shared/theme-toggler/theme-toggler.module';
 import { FieldCellComponent } from './field-cell/field-cell.component';
 import { GameEndComponent } from './game-end/game-end.component';
 import { GamePlayComponent } from './game-play/game-play.component';
@@ -36,6 +37,7 @@ import { RoomComponent } from './room.component';
     LoaderModule,
     IconsModule,
     LetterModule,
+    ThemeTogglerModule,
 
     RoomRoutingModule,
   ],
