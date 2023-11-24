@@ -7,7 +7,7 @@
         [editable]="editable"
         [count]="cell.selectionCount"
         [highlighted]="cell.selected"
-        (click)="onCellClick(x, y)"
+        (pointerdown)="onPointerDown(x, y)"
         (letterChanged)="onLetterChanged($event, x, y)"
       ></app-field-cell>
     </ng-container>

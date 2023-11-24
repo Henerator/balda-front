@@ -38,9 +38,9 @@ export class RoomFieldComponent {
   public cells: FieldCell[][] = [];
 
   private selectedPositions: Position[] = [];
-  private longSelection = false;
+  private selectedCell: Position | null = null;
+  private selectionStart: number | null = null;
   private longSelectionDelay = 400;
-  private longSelectionTimer: number | null = null;
 
   onLetterChanged(letter: string, x: number, y: number): void {
     this.cells[y][x].value = letter;
@@ -50,15 +50,27 @@ export class RoomFieldComponent {
     });
   }
 
-  onCellClick(x: number, y: number): void {
+  onPointerDown(x: number, y: number): void {
     if (!this.selectable) return;
+    this.selectedCell = { x, y };
+    this.selectionStart = Date.now();
+  }
+
+  @HostListener('document:pointerup')
+  onPointerUp(): void {
+    if (!this.selectable) return;
+    if (!this.selectedCell) return;
+
+    const { x, y } = this.selectedCell;
+    this.selectedCell = null;
+
     if (!this.cells[y][x].value) return;
 
     const lastSelected = this.selectedPositions.at(-1);
 
     if (this.cells[y][x].selected) {
       if (lastSelected?.x === x && lastSelected?.y === y) {
-        if (this.duplcateAllowed() && this.longSelection) {
+        if (this.duplcateAllowed() && this.isLongSelection()) {
           this.selectCell(x, y);
           return;
         }
@@ -75,31 +87,10 @@ export class RoomFieldComponent {
     this.selectCell(x, y);
   }
 
-  @HostListener('pointerdown')
-  onPointerDown(): void {
-    if (!this.selectable) return;
-    this.clearLongSelectionTimeout();
-    this.longSelection = false;
-    this.longSelectionTimer = window.setTimeout(
-      () => (this.longSelection = true),
-      this.longSelectionDelay
-    );
-  }
-
-  @HostListener('document:pointerup')
-  onPointerUp(): void {
-    this.clearLongSelectionTimeout();
-  }
-
-  private clearLongSelectionTimeout(): void {
-    if (this.longSelectionTimer) {
-      window.clearTimeout(this.longSelectionTimer);
-    }
-  }
-
   private resetState(): void {
     this.selectedPositions = [];
-    this.longSelection = false;
+    this.selectedCell = null;
+    this.selectionStart = null;
   }
 
   private selectCell(x: number, y: number): void {
@@ -135,6 +126,13 @@ export class RoomFieldComponent {
 
   private duplcateAllowed(): boolean {
     return this.letterSequenceRules.includes(LetterSequenceRule.duplicate);
+  }
+
+  private isLongSelection(): boolean {
+    return (
+      !!this.selectionStart &&
+      Date.now() - this.selectionStart > this.longSelectionDelay
+    );
   }
 
   private validNextSelection(previous: Position, current: Position): boolean {
