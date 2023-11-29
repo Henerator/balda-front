@@ -1,6 +1,7 @@
 :host {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-rows: subgrid;
+  grid-row: span 3;
   color: var(--text);
 
   &.highlighted {
@@ -8,6 +9,10 @@
       color: var(--primary);
     }
   }
+}
+
+.name {
+  word-break: break-word;
 }
 
 .words {
