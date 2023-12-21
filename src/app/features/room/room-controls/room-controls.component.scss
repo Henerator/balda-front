@@ -6,7 +6,16 @@
   max-width: 400px;
 }
 
+.message {
+  flex-grow: 1;
+  padding: 0 6px;
+  text-align: center;
+  color: var(--error);
+}
+
 .icons-set {
+  flex-shrink: 0;
+
   .icon:not(:last-child) {
     margin-right: 12px;
   }

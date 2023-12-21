@@ -15,6 +15,7 @@ import { RoomMessage } from './models/room-message.enum';
 import { ServerToClientEvents } from './models/server-to-client-events.interface';
 import { StorageRoom } from './models/storage-room.interface';
 import { ChangedLetter } from './room-field/models/changed-letter.interface';
+import { roomErrorTextMap } from './room-error-text-map.const';
 
 @Component({
   selector: 'app-room',
@@ -32,6 +33,9 @@ export class RoomComponent implements OnInit {
 
   public changedLetter: ChangedLetter | null = null;
   public selectedPositions: Position[] = [];
+
+  public roomErrorText = '';
+  public roomErrorDelay = 1500;
   public applyWordErrors = 0;
 
   private roomInitialized = false;
@@ -49,18 +53,16 @@ export class RoomComponent implements OnInit {
 
   ngOnInit(): void {
     this.socket.on(RoomMessage.error, (message) => {
-      console.log('[LOG] error', message);
       switch (message.id) {
         case RoomErrorId.roomNotFound:
           this.redirectToNotFound();
           break;
 
-        case RoomErrorId.wordNotFound:
-        case RoomErrorId.wordAlreadyUsed:
+        default:
+          this.setRoomErrorText(message.id);
           this.resetSelectedWord();
           this.applyWordErrors++;
-          break;
-        default:
+
           break;
       }
     });
@@ -153,6 +155,11 @@ export class RoomComponent implements OnInit {
     this.selectedPositions = [];
     this.gameState = GameState.addLetter;
     this.udpateMatrix(this.room);
+  }
+
+  private setRoomErrorText(errorId: RoomErrorId): void {
+    this.roomErrorText = roomErrorTextMap[errorId] ?? roomErrorTextMap.unknown;
+    setTimeout(() => (this.roomErrorText = ''), this.roomErrorDelay);
   }
 
   private getStorageKey(roomId: string): string {

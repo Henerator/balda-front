@@ -9,7 +9,10 @@
   ></app-join-form>
 
   <div *ngIf="room" class="page-container">
-    <app-room-controls class="room-controls"></app-room-controls>
+    <app-room-controls
+      [message]="roomErrorText"
+      class="room-controls"
+    ></app-room-controls>
 
     <ng-container [ngSwitch]="room.state">
       <app-room-field

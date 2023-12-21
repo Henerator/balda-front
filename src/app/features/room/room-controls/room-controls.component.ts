@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, Input, OnInit } from '@angular/core';
 import { windowToken } from '@core/window/window.token';
 import { ClipboardService } from '@shared/clipboard/clipboard.service';
 
@@ -8,6 +8,8 @@ import { ClipboardService } from '@shared/clipboard/clipboard.service';
   styleUrls: ['./room-controls.component.scss'],
 })
 export class RoomControlsComponent implements OnInit {
+  @Input() public message = '';
+
   canShare = false;
 
   public constructor(

@@ -1,5 +1,9 @@
 <app-theme-toggler></app-theme-toggler>
 
+<div class="message">
+  <ng-container *ngIf="message">{{ message }}</ng-container>
+</div>
+
 <div class="icons-set">
   <app-icon [name]="'copy'" (click)="onCopyRoom()" class="icon"></app-icon>
   <app-icon
