@@ -16,6 +16,8 @@
 }
 
 .words {
+  display: flex;
+  flex-direction: column-reverse;
   flex-grow: 1;
   color: var(--text-secondary);
 }
