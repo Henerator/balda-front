@@ -1,8 +1,4 @@
-<form
-  [formGroup]="createForm"
-  (ngSubmit)="formSubmit.emit(createForm.value)"
-  class="form"
->
+<form [formGroup]="createForm" (ngSubmit)="onSubmit()" class="form">
   <ui-expansion-panel [title]="'Настройки'" class="form-item">
     <app-checkbox
       [id]="'allowDiagonalLetter'"

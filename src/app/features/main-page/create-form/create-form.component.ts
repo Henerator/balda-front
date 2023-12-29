@@ -1,5 +1,6 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { StorageService } from '@core/storage/storage.service';
 import { SelectOption } from '@shared/controls/select/select-option.interface';
 import { CreateRoomDto } from '@shared/room-api/create-room-dto.interface';
 
@@ -8,7 +9,7 @@ import { CreateRoomDto } from '@shared/room-api/create-room-dto.interface';
   templateUrl: './create-form.component.html',
   styleUrls: ['./create-form.component.scss'],
 })
-export class CreateFormComponent {
+export class CreateFormComponent implements OnInit {
   @Output() formSubmit = new EventEmitter<CreateRoomDto>();
 
   public createForm = new FormGroup({
@@ -27,4 +28,32 @@ export class CreateFormComponent {
       value: 6,
     },
   ];
+
+  private readonly storageKey = 'roomSettings';
+
+  constructor(private storageService: StorageService) {}
+
+  ngOnInit(): void {
+    this.restoreSavedSettings();
+  }
+
+  public onSubmit(): void {
+    const settings = this.createForm.value as CreateRoomDto;
+    this.saveSettings(settings);
+    this.formSubmit.emit(settings);
+  }
+
+  private saveSettings(settings: CreateRoomDto): void {
+    this.storageService.setObject<CreateRoomDto>(this.storageKey, settings);
+  }
+
+  private restoreSavedSettings(): void {
+    const roomSettings = this.storageService.getObject<CreateRoomDto>(
+      this.storageKey
+    );
+
+    if (roomSettings) {
+      this.createForm.setValue(roomSettings);
+    }
+  }
 }
