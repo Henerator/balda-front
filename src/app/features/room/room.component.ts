@@ -41,7 +41,10 @@ export class RoomComponent implements OnInit {
   private roomInitialized = false;
   private roomId: string | null = null;
   private socket: Socket<ServerToClientEvents, ClientToServerEvents> = io(
-    `${environment.socketServerUrl}/room`
+    `${environment.socketServerUrl}/room`,
+    {
+      transports: ['websocket'],
+    }
   );
 
   constructor(
