@@ -5,6 +5,7 @@
   justify-content: center;
   color: var(--text);
   border: 2px solid var(--secondary);
+  font-size: 28px;
   text-transform: uppercase;
   aspect-ratio: 1;
 
@@ -35,8 +36,8 @@
   position: absolute;
   top: 0;
   right: 0;
-  padding: 4px;
-  font-size: 16px;
+  padding: 0.2em;
+  font-size: 0.6em;
   line-height: 1em;
   color: var(--text-on-primary);
 }

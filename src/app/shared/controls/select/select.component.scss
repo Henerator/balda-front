@@ -22,8 +22,9 @@
   top: calc(100% + 12px);
   left: 0;
   width: 100%;
+  max-height: 180px;
   background: var(--background);
-  overflow: hidden;
+  overflow-y: scroll;
   cursor: pointer;
 }
 

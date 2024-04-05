@@ -25,6 +25,7 @@ export class RoomFieldComponent {
   @Input() public letterSequenceRules: LetterSequenceRule[] = [];
   @Input() public set matrix(value: string[][]) {
     this.resetState();
+    this.setCellShrink(value.length);
     this.cells = this.mapRoomMatrix(value);
   }
 
@@ -36,6 +37,7 @@ export class RoomFieldComponent {
   @Output() positionsSelected = new EventEmitter<Position[]>();
 
   public cells: FieldCell[][] = [];
+  public cellShrink = 1;
 
   private selectedPositions: Position[] = [];
   private selectedCell: Position | null = null;
@@ -91,6 +93,17 @@ export class RoomFieldComponent {
     this.selectedPositions = [];
     this.selectedCell = null;
     this.selectionStart = null;
+  }
+
+  private setCellShrink(count: number): void {
+    const normalCount = 6;
+    if (count <= normalCount) {
+      this.cellShrink = 1;
+      return;
+    }
+
+    const shrinkStep = 0.1;
+    this.cellShrink = 1 - (count - normalCount) * shrinkStep;
   }
 
   private selectCell(x: number, y: number): void {

@@ -22,10 +22,17 @@ export class FieldCellComponent implements OnDestroy {
   @Input() public value: string | null = null;
   @Input() public editable = false;
   @Input() public count = 0;
+  @Input() public shrink = 1;
 
   @HostBinding('class.highlighted')
   @Input()
   public highlighted = false;
+
+  @HostBinding('style.fontSize.px')
+  public get fontSize() {
+    const baseFontSize = 28;
+    return this.shrink * baseFontSize;
+  }
 
   @Output() letterChanged = new EventEmitter<string>();
 
