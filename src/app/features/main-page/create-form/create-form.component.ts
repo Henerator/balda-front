@@ -1,8 +1,10 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { StorageService } from '@core/storage/storage.service';
-import { SelectOption } from '@shared/controls/select/select-option.interface';
 import { CreateRoomDto } from '@shared/room-api/create-room-dto.interface';
+import { defaultSettings } from './default-settings.const';
+import { repeatLimitOptions } from './repeat-limit-options.const';
+import { sizeOptions } from './size-options.const';
 
 @Component({
   selector: 'app-create-form',
@@ -13,45 +15,18 @@ export class CreateFormComponent implements OnInit {
   @Output() formSubmit = new EventEmitter<CreateRoomDto>();
 
   public createForm = new FormGroup({
-    size: new FormControl<number>(5),
-    allowDiagonalLetter: new FormControl<boolean>(false),
-    allowDuplicateLetter: new FormControl<boolean>(false),
+    size: new FormControl<number>(defaultSettings.size),
+    repeatLimit: new FormControl<number>(defaultSettings.repeatLimit),
+    allowDiagonalLetter: new FormControl<boolean>(
+      defaultSettings.allowDiagonalLetter
+    ),
+    allowDuplicateLetter: new FormControl<boolean>(
+      defaultSettings.allowDuplicateLetter
+    ),
   });
 
-  public sizeOptions: SelectOption[] = [
-    {
-      name: '3x3 ячейки',
-      value: 3,
-    },
-    {
-      name: '4x4 ячейки',
-      value: 4,
-    },
-    {
-      name: '5x5 ячеек',
-      value: 5,
-    },
-    {
-      name: '6x6 ячеек',
-      value: 6,
-    },
-    {
-      name: '7x7 ячеек',
-      value: 7,
-    },
-    {
-      name: '8x8 ячеек',
-      value: 8,
-    },
-    {
-      name: '9x9 ячеек',
-      value: 9,
-    },
-    {
-      name: '10x10 ячеек',
-      value: 10,
-    },
-  ];
+  public sizeOptions = sizeOptions;
+  public repeatLimitOptions = repeatLimitOptions;
 
   private readonly storageKey = 'roomSettings';
 
@@ -77,7 +52,15 @@ export class CreateFormComponent implements OnInit {
     );
 
     if (roomSettings) {
-      this.createForm.setValue(roomSettings);
+      const settings = this.fillMissedSettings(roomSettings);
+      this.createForm.setValue(settings);
     }
+  }
+
+  private fillMissedSettings(settings: CreateRoomDto): CreateRoomDto {
+    return {
+      ...defaultSettings,
+      ...settings,
+    };
   }
 }

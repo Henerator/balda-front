@@ -1,5 +1,6 @@
 export interface CreateRoomDto {
-  size: number | null;
-  allowDiagonalLetter: boolean | null;
-  allowDuplicateLetter: boolean | null;
+  size: number;
+  repeatLimit: number;
+  allowDiagonalLetter: boolean;
+  allowDuplicateLetter: boolean;
 }

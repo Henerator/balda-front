@@ -6,6 +6,7 @@ export interface Room {
   _id: string;
   size: number;
   capacity: number;
+  repeatLimit: number;
   state: RoomState;
   currentPlayerName: string | null;
   players: RoomPlayer[];

@@ -23,6 +23,7 @@ export class RoomFieldComponent {
   @Input() public editable = false;
   @Input() public selectable = false;
   @Input() public letterSequenceRules: LetterSequenceRule[] = [];
+  @Input() public repeatLimit = Infinity;
   @Input() public set matrix(value: string[][]) {
     this.resetState();
     this.setCellShrink(value.length);
@@ -107,6 +108,8 @@ export class RoomFieldComponent {
   }
 
   private selectCell(x: number, y: number): void {
+    if (this.cells[y][x].selectionCount >= this.repeatLimit) return;
+
     this.cells[y][x].selected = true;
     this.cells[y][x].selectionCount++;
 

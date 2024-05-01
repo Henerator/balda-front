@@ -7,17 +7,18 @@
       class="margin-b-sm"
     ></app-checkbox>
 
-    <app-checkbox
-      [id]="'allowDuplicateLetter'"
-      [formControlName]="'allowDuplicateLetter'"
-      [label]="'Разрешить повторение буквы'"
-      class="margin-b-sm"
-    ></app-checkbox>
-
     <app-select
       [id]="'size'"
       [formControlName]="'size'"
       [options]="sizeOptions"
+      class="margin-b-sm"
+    ></app-select>
+
+    <app-select
+      [id]="'repeatLimit'"
+      [formControlName]="'repeatLimit'"
+      [label]="'Количество повторений'"
+      [options]="repeatLimitOptions"
       class="margin-b-sm"
     ></app-select>
   </ui-expansion-panel>
